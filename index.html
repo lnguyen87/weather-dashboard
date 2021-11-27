@@ -6,12 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css" />
-    <title>Document</title>
+    <title>Weather Dashboard</title>
 </head>
 <body>
     <header class="jumbotron">
-        <h1>placeholder</h1>
+        <h1>Weather Dashboard</h1>
     </header>
+
+    <main>
+        <div class="card col-3">
+            <div class="search">
+                <h2>Search for a City:</h2>
+            </div>
+        </div>
+
+        <div class="card col-9">
+            <div class="dashboard">
+                <div class="city"></div>
+                <div class="forecast">5-Day Forecast:</div>
+            </div>
+        </div>
+    </main>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
