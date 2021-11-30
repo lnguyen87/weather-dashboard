@@ -40,6 +40,18 @@
     padding: 10px;
 }
 
+.forecastContainer {
+    padding: 10px;
+}
+
 .forecastDetail {
     font-size: 20px;
+    padding: 10px;
+    border: #000000 solid 1px;
+    background-color: #0a1264;
+    color: #ffffff;
+}
+
+.hide {
+    display: none;
 }
