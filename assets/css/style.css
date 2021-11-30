@@ -2,21 +2,17 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: #ffffff;
-}
-
-body {
-    background-color: #000000;
 }
 
 .jumbotron {
     padding: 1em;
     text-align: center;
     background-image: linear-gradient(90deg, #2bb0c7 0%, #0c1bc3 100%);
-    color: #000000;
+    color: #ffffff;
+    border-radius: 0;
 }
 
-.search-section {
+ .search-section {
     display: flex;
     flex-direction: column;
     height: 80vh;
@@ -35,15 +31,15 @@ body {
     color: #000000;
     font-weight: bold;
     margin: 10px 0;
+    border-radius: 5px;
 }
 
 .city {
-    border: #ffffff solid 2px;
+    border: #000000 solid 2px;
     height: 30vh;
     padding: 10px;
 }
 
 .forecastDetail {
     font-size: 20px;
-    color: #ffffff;
 }
