@@ -13,17 +13,25 @@
         <h1>Weather Dashboard</h1>
     </header>
 
-    <main>
-        <div class="card col-3">
-            <div class="search">
+    <main class="container">
+        <div class="row">
+            <div class="col-3 search-section">
                 <h2>Search for a City:</h2>
+                <input type="text" class="cityName" placeholder="Enter name of city">
+                <input type="button" class="searchButton" value="Search">
+                <hr>
             </div>
-        </div>
 
-        <div class="card col-9">
-            <div class="dashboard">
-                <div class="city"></div>
-                <div class="forecast">5-Day Forecast:</div>
+            <div class="col-9">
+                <div class="city">City Placeholder</div>
+                <h3 class="forecast">5-Day Forecast:</p>
+                    <div class="forecastDetail">
+                        <p class="date"></p>
+                        <p class="icon"></p>
+                        <p class="temperature"></p>
+                        <p class="wind"></p>
+                        <p class="humidity"></p>
+                    </div>
             </div>
         </div>
     </main>
