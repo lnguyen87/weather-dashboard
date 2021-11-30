@@ -1,4 +1,4 @@
-var cityName = $(".cityName").val();
+// var cityName = $(".cityName").val();
 var date = $(".date");
 var icon = $(".icon");
 var temperature = $(".temperature");
@@ -25,8 +25,29 @@ function displayForecast( d ) {
     document.querySelector(".wind1").innerHTML = "Wind Speed: " +  d.list[i].wind.speed;
     document.querySelector(".temperature1").innerHTML = "Temperature: " +  d.list[i].main.temp + '&deg;' + " Fahrenheit " + " / " + celsius + '&deg;' + " Celsius";
     document.querySelector(".humidity1").innerHTML = "Humidity: " + d.list[i].main.humidity + "%";
+
+    var forecastEl = document.querySelector(".forecast");
+    // forecastEl.createElement("<div>").addClass("forecastDetail");
+    
     }
 }
+
+$(".userInput").submit(function(e) {
+    e.preventDefault()
+    var cityName = $(".cityName").val()
+    console.log(cityName);
+    var getCurrentForecast = function() {
+        var apiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=1750d64b9b244e082f61b1c95f2ee8c2&units=imperial';
+        fetch(apiUrl)
+            .then(function(response) {
+                response.json().then(function(data) {
+                    console.log(data);
+                })
+                
+            })
+    }
+getCurrentForecast();
+});
 
 $(".searchButton").on("click", function() {
 var getCoordinates = function(cityName) {
