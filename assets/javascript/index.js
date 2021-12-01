@@ -1,6 +1,8 @@
 var forecastContainerEl = document.querySelector(".forecastContainer");
 var forecastHide = document.querySelector(".forecast");
+var resetButton = document.querySelector(".resetButton");
 var savedSearch = document.querySelector(".savedSearch");
+var saveArray = [];
 
 // pulls data from API getCurrentForecast call and displays to city div
 function displayWeather(d) {
@@ -93,15 +95,25 @@ $(".userInput").submit(function(e) {
                 response.json().then(function(data) {
                     console.log(data);
                     displayWeather(data);
-
-                    // save data to local storage
-                    localStorage.setItem("location", JSON.stringify(cityName));
                     var saveInput = JSON.parse(localStorage.getItem("location"));
-                    console.log(saveInput);
+                        console.log(saveInput);
+                        // check if anything in local storage, if null skip
+                        if (saveInput) {
+                        saveArray.push(saveInput);
+                        console.log(saveArray);
+                        }
+                        saveArray.push(cityName);
+                        console.log(saveArray);
+                    // save data to local storage
+                    localStorage.setItem("location", JSON.stringify(saveArray));
+                    
 
                     // displays cityName to DOM
-                    savedSearch.append(value = cityName);
+                    savedSearch.append(value = saveArray);
                 })
+
+                // displays reset search button
+                resetButton.classList.remove("hide");
             })
     }
     forecastHide.classList.remove("hide");
@@ -127,3 +139,11 @@ $(".userInput").submit(function(e) {
         }
         getFutureForecast();
 });
+
+// create a clear local storage button
+$(".resetButton").click(function() {
+    localStorage.clear();
+    $(".cityName").val("");
+    location.reload();
+    savedSearch.classList.add("hide");
+}) 
