@@ -96,17 +96,27 @@ $(".userInput").submit(function(e) {
                     console.log(data);
                     displayWeather(data);
                     var saveInput = JSON.parse(localStorage.getItem("location"));
-                        console.log(saveInput);
+                        console.log("saveInput", saveInput);
+
+                        console.log(saveArray);
+                        saveArray= [];
+                        
                         // check if anything in local storage, if null skip
                         if (saveInput) {
-                        saveArray.push(saveInput);
+                            for (var i = 0; i<saveInput.length; i++) {
+
+                        saveArray.push(saveInput[i]);
                         console.log(saveArray);
+
+                            }
                         }
+
                         saveArray.push(cityName);
                         console.log(saveArray);
                     // save data to local storage
                     localStorage.setItem("location", JSON.stringify(saveArray));
                     
+                        // CREATE A FOR LOOP WITH A SPLIT FUNCTION TO CREATE A NEW BUTTON EVERY TIME IT'S CALLED
 
                     // displays cityName to DOM
                     savedSearch.append(value = saveArray);
