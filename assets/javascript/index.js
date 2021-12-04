@@ -16,12 +16,9 @@ function displayWeather(d) {
     document.querySelector(".temperature0").innerHTML = "Temperature: " +  d.main.temp.toFixed(0) + '&deg;' + " F " + " / " + celsius + '&deg;' + " C";
     document.querySelector(".humidity0").innerHTML = "Humidity: " + d.main.humidity + "%";
     // document.querySelector(".uvIndex").innerHTML = "UV Index: " + d.list[0]
-
-    var lat = d.coord.lat;
-    console.log(lat);
-    var lon = d.coord.lon;
-    console.log(lon);
+    
 }
+
 
 // pulls data from API get
 function displayForecast( d ) {
@@ -78,6 +75,7 @@ $(".userInput").submit(function(e) {
     
     var cityName = $(".cityName").val()
     console.log(cityName);
+    
     var getCurrentForecast = function() {
         var apiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=1750d64b9b244e082f61b1c95f2ee8c2&units=imperial';
         fetch(apiUrl)
@@ -85,6 +83,8 @@ $(".userInput").submit(function(e) {
                 response.json().then(function(data) {
                     console.log(data);
                     displayWeather(data);
+                    getFutureForecast(data);
+
                     saveArray.push(cityName);
                     localStorage.setItem("location", JSON.stringify(saveArray));
                     var saveInput = JSON.parse(localStorage.getItem("location"));
@@ -114,7 +114,7 @@ $(".userInput").submit(function(e) {
                         console.log("saveArray3: ", saveArray);
                     // save data to local storage
                     
-                        // CREATE A FOR LOOP WITH A SPLIT FUNCTION TO CREATE A NEW BUTTON EVERY TIME IT'S CALLED
+
 
                     // displays cityName to DOM
                     savedSearch.after(cityBtn);
@@ -125,12 +125,14 @@ $(".userInput").submit(function(e) {
 
                 $(".cityName").val("");
             })
+            // getFutureForecast(data)
     }
     forecastHide.classList.remove("hide");
     getCurrentForecast();
 
-    var getFutureForecast = function() {
-        var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&appid=1750d64b9b244e082f61b1c95f2ee8c2&units=imperial';
+    var getFutureForecast = function(data) {
+        var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&exclude=hourly,minutely&appid=1750d64b9b244e082f61b1c95f2ee8c2";
+        // var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&appid=1750d64b9b244e082f61b1c95f2ee8c2&units=imperial';
         fetch(apiUrl)
             .then(function(response) {
                 if (response.ok) {
@@ -146,7 +148,7 @@ $(".userInput").submit(function(e) {
                 alert("City not found! Please enter a new city.");
             });
         }
-        getFutureForecast();
+        // getFutureForecast();
 });
 
 // create a clear local storage button
@@ -156,3 +158,10 @@ $(".resetButton").click(function() {
     location.reload();
     savedSearch.classList.add("hide");
 }) 
+
+// on load, display local stored buttons
+// var load = function() {
+//     var loadCity = localStorage.getItem(saveInput[i]);
+//     console.log(loadCity);
+// }
+// load();
