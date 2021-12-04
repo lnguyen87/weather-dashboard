@@ -43,9 +43,8 @@
 }
 
 .city {
-    border: #000000 solid 2px;
+    padding-left: 10px;
     height: 30vh;
-    padding: 10px;
 }
 
 .forecastContainer {

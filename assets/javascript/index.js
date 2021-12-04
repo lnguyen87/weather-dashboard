@@ -85,6 +85,8 @@ $(".userInput").submit(function(e) {
                 response.json().then(function(data) {
                     console.log(data);
                     displayWeather(data);
+                    saveArray.push(cityName);
+                    localStorage.setItem("location", JSON.stringify(saveArray));
                     var saveInput = JSON.parse(localStorage.getItem("location"));
                         console.log("saveInput", saveInput);
 
@@ -94,7 +96,7 @@ $(".userInput").submit(function(e) {
                         // check if anything in local storage, if null skip
                         if (saveInput) {
                             for (var i = 0; i<saveInput.length; i++) {
-
+                            // console.log("test", saveInput[i]);
                             saveArray.push(saveInput[i]);
                             console.log("saveArray2: ", saveArray);
 
@@ -109,10 +111,8 @@ $(".userInput").submit(function(e) {
                             }
                         }
 
-                        saveArray.push(cityName);
                         console.log("saveArray3: ", saveArray);
                     // save data to local storage
-                    localStorage.setItem("location", JSON.stringify(saveArray));
                     
                         // CREATE A FOR LOOP WITH A SPLIT FUNCTION TO CREATE A NEW BUTTON EVERY TIME IT'S CALLED
 
@@ -122,6 +122,8 @@ $(".userInput").submit(function(e) {
 
                 // displays reset search button
                 resetButton.classList.remove("hide");
+
+                $(".cityName").val("");
             })
     }
     forecastHide.classList.remove("hide");
