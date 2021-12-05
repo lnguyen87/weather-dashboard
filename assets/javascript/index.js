@@ -213,46 +213,11 @@ $(document).on("click", ".historyBtn", function historyButtons (e) {
                     console.log(data);
                     displayWeather(data);
                     getFutureForecast(data);
-
-                    saveArray.push(cityName);
-                    localStorage.setItem("location", JSON.stringify(saveArray));
-                    var saveInput = JSON.parse(localStorage.getItem("location"));
-                        console.log("saveInput", saveInput);
-
-                        console.log("saveArray1: ", saveArray);
-                        saveArray= [];
-                        
-                        // check if anything in local storage, if null skip
-                        if (saveInput) {
-                            for (var i = 0; i<saveInput.length; i++) {
-
-                            saveArray.push(saveInput[i]);
-                            console.log("saveArray2: ", saveArray);
-
-                            var cityEl = saveInput[i];
-                            var cityBtn = document.createElement("button");
-                            cityBtn.textContent = cityEl;
-                            cityBtn.style.cssText = `margin: 8px; 
-                            color: #000000; 
-                            backgroundColor: #e7e7e7; 
-                            padding: 5px; 
-                            border-radius: 5px`; 
-                            }
-                        }
-
-                        console.log("saveArray3: ", saveArray);
-                    // save data to local storage
-                    
-
-
-                    // displays cityName to DOM
-                    savedSearch.after(cityBtn);
                 })
 
                 // displays reset search button
                 resetButton.classList.remove("hide");
 
-                $(".cityName").val("");
             })
     }
     forecastHide.classList.remove("hide");
