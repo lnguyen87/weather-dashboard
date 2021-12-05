@@ -156,11 +156,11 @@ $(".userInput").submit(function(e) {
                         displayForecast(data);
                     })
                 } else {
-                    alert("Location not found");
+                    alert("City not found! Please enter a new city.");
                 }
             })
             .catch(function(error) {
-                alert("City not found! Please enter a new city.");
+                alert("Connection error. Unable to connect to API");
             });
         }
 });
@@ -177,12 +177,9 @@ $(".resetButton").click(function() {
 // on page load checks local storage for history
 var load = function() {
     var loadCity = JSON.parse(localStorage.getItem("location"));
-    console.log(loadCity);
-
 
     // if local storage has data, create button and append to DOM
     for (var i =0; i < loadCity.length; i++) {
-        console.log("load city: ", loadCity)
         $(".savedSearch").append(`<button class="historyBtn" 
         data-cityName="${loadCity[i]}" 
         value="${loadCity[i]}" 
@@ -201,6 +198,84 @@ var load = function() {
 }
 
 load();
+
+// create on click feature for history button
+$(document).on("click", ".historyBtn", function historyButtons (e) {
+    e.preventDefault();
+    var cityName = $(this).val();
+    console.log(cityName);
+    
+    var getCurrentForecast = function() {
+        var apiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=1750d64b9b244e082f61b1c95f2ee8c2&units=imperial';
+        fetch(apiUrl)
+            .then(function(response) {
+                response.json().then(function(data) {
+                    console.log(data);
+                    displayWeather(data);
+                    getFutureForecast(data);
+
+                    saveArray.push(cityName);
+                    localStorage.setItem("location", JSON.stringify(saveArray));
+                    var saveInput = JSON.parse(localStorage.getItem("location"));
+                        console.log("saveInput", saveInput);
+
+                        console.log("saveArray1: ", saveArray);
+                        saveArray= [];
+                        
+                        // check if anything in local storage, if null skip
+                        if (saveInput) {
+                            for (var i = 0; i<saveInput.length; i++) {
+
+                            saveArray.push(saveInput[i]);
+                            console.log("saveArray2: ", saveArray);
+
+                            var cityEl = saveInput[i];
+                            var cityBtn = document.createElement("button");
+                            cityBtn.textContent = cityEl;
+                            cityBtn.style.cssText = `margin: 8px; 
+                            color: #000000; 
+                            backgroundColor: #e7e7e7; 
+                            padding: 5px; 
+                            border-radius: 5px`; 
+                            }
+                        }
+
+                        console.log("saveArray3: ", saveArray);
+                    // save data to local storage
+                    
+
+
+                    // displays cityName to DOM
+                    savedSearch.after(cityBtn);
+                })
+
+                // displays reset search button
+                resetButton.classList.remove("hide");
+
+                $(".cityName").val("");
+            })
+    }
+    forecastHide.classList.remove("hide");
+    getCurrentForecast();
+
+    var getFutureForecast = function(data) {
+        var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&exclude=hourly,minutely&units=imperial&appid=1750d64b9b244e082f61b1c95f2ee8c2";
+        fetch(apiUrl)
+            .then(function(response) {
+                if (response.ok) {
+                    response.json().then(function(data) {
+                        console.log(data);
+                        displayForecast(data);
+                    })
+                } else {
+                    alert("City not found! Please enter a new city.");
+                }
+            })
+            .catch(function(error) {
+                alert("Connection error. Unable to connect to API");
+            });
+        }
+});
 
 
 
