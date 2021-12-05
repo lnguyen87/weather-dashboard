@@ -44,7 +44,6 @@
 
 .city {
     padding-left: 10px;
-    height: 30vh;
 }
 
 .forecastContainer {
@@ -62,3 +61,4 @@
 .hide {
     display: none;
 }
+

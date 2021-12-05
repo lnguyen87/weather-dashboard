@@ -15,60 +15,77 @@ function displayWeather(d) {
     document.querySelector(".wind0").innerHTML = "Wind Speed: " +  d.wind.speed + " mph";
     document.querySelector(".temperature0").innerHTML = "Temperature: " +  d.main.temp.toFixed(0) + '&deg;' + " F " + " / " + celsius + '&deg;' + " C";
     document.querySelector(".humidity0").innerHTML = "Humidity: " + d.main.humidity + "%";
-    // document.querySelector(".uvIndex").innerHTML = "UV Index: " + d.list[0]
     
 }
 
 
 // pulls data from API get
 function displayForecast( d ) {
-    // for (var i = 1; i < 6; i++) {
-                        
-    var celsius = Math.round((parseFloat(d.list[4].main.temp)-32)*.5556);
+    // prints UV Index to DOM and syles background based on uvIndex burn times
+    document.querySelector(".uvIndex").innerHTML = d.current.uvi;
+    if (d.current.uvi < 1){
+    document.querySelector(".uvIndex").style.cssText = `background-color: #00ff55;`
+    } else if (d.current.uvi > 1 && d.current.uvi< 2) {
+    document.querySelector(".uvIndex").style.cssText = `background-color: #9dff00;`
+    } else if (d.current.uvi > 2 && d.current.uvi< 3) {
+    document.querySelector(".uvIndex").style.cssText = `background-color: #fffb00;`
+    } else if (d.current.uvi > 3 && d.current.uvi< 4) {
+    document.querySelector(".uvIndex").style.cssText = `background-color: #ffc400;`
+    } else if (d.current.uvi > 4 && d.current.uvi< 5) {
+    document.querySelector(".uvIndex").style.cssText = `background-color: #ff9d00;`
+    } else if (d.current.uvi > 5 && d.current.uvi< 6) {
+    document.querySelector(".uvIndex").style.cssText = `background-color: #ff8800;`
+    } else if (d.current.uvi > 6 && d.current.uvi< 7) {
+    document.querySelector(".uvIndex").style.cssText = `background-color: #ff0000;`
+    } else if (d.current.uvi > 7 && d.current.uvi< 8) {
+    document.querySelector(".uvIndex").style.cssText = `background-color: #bd0909;`
+    } else if (d.current.uvi > 8 && d.current.uvi< 9) {
+    document.querySelector(".uvIndex").style.cssText = `background-color: #bd0969;`
+    } else if (d.current.uvi > 9 && d.current.uvi< 10) {
+    document.querySelector(".uvIndex").style.cssText = `background-color: #ff058a;`
+    }
+
+    var celsius = Math.round((parseFloat(d.daily[1].temp.day)-32)*.5556);
     
     document.querySelector(".date1").innerHTML = moment().add(1, 'day').format('l');
-    $(".icon1").attr("src", "http://openweathermap.org/img/wn/" + d.list[4].weather[0].icon + "@2x" + ".png");
-    document.querySelector(".wind1").innerHTML = "Wind Speed: " +  d.list[4].wind.speed + " mph";
-    document.querySelector(".temperature1").innerHTML = "Temperature: " +  d.list[4].main.temp.toFixed(0) + '&deg;' + " F " + " / " + celsius + '&deg;' + " C";
-    document.querySelector(".humidity1").innerHTML = "Humidity: " + d.list[4].main.humidity + "%";
+    $(".icon1").attr("src", "http://openweathermap.org/img/wn/" + d.daily[1].weather[0].icon + "@2x" + ".png");
+    document.querySelector(".wind1").innerHTML = "Wind Speed: " +  d.daily[1].wind_speed + " mph";
+    document.querySelector(".temperature1").innerHTML = "Temperature: " +  d.daily[1].temp.day.toFixed(0) + '&deg;' + " F " + " / " + celsius + '&deg;' + " C";
+    document.querySelector(".humidity1").innerHTML = "Humidity: " + d.daily[1].humidity + "%";
 
-    // create a div element to hold 5 day forecast
-    // var forecastEl = document.querySelector(".forecast");
-    // forecastEl.createElement("<div>").addClass("forecastDetail");
-    // }
-
-    var celsius = Math.round((parseFloat(d.list[12].main.temp)-32)*.5556);
+    var celsius = Math.round((parseFloat(d.daily[2].temp.day)-32)*.5556);
     
-    document.querySelector(".date2").innerHTML = moment().add(2, 'days').format('l');
-    $(".icon2").attr("src", "http://openweathermap.org/img/wn/" + d.list[12].weather[0].icon + "@2x" + ".png");
-    document.querySelector(".wind2").innerHTML = "Wind Speed: " +  d.list[12].wind.speed + " mph";
-    document.querySelector(".temperature2").innerHTML = "Temperature: " +  d.list[12].main.temp.toFixed(0) + '&deg;' + " F " + " / " + celsius + '&deg;' + " C";
-    document.querySelector(".humidity2").innerHTML = "Humidity: " + d.list[12].main.humidity + "%";
+    document.querySelector(".date2").innerHTML = moment().add(2, 'day').format('l');
+    $(".icon2").attr("src", "http://openweathermap.org/img/wn/" + d.daily[2].weather[0].icon + "@2x" + ".png");
+    document.querySelector(".wind2").innerHTML = "Wind Speed: " +  d.daily[2].wind_speed + " mph";
+    document.querySelector(".temperature2").innerHTML = "Temperature: " +  d.daily[2].temp.day.toFixed(0) + '&deg;' + " F " + " / " + celsius + '&deg;' + " C";
+    document.querySelector(".humidity2").innerHTML = "Humidity: " + d.daily[2].humidity + "%";
 
-    var celsius = Math.round((parseFloat(d.list[20].main.temp)-32)*.5556);
+    var celsius = Math.round((parseFloat(d.daily[3].temp.day)-32)*.5556);
     
-    document.querySelector(".date3").innerHTML = moment().add(3, 'days').format('l');
-    $(".icon3").attr("src", "http://openweathermap.org/img/wn/" + d.list[20].weather[0].icon + "@2x" + ".png");
-    document.querySelector(".wind3").innerHTML = "Wind Speed: " +  d.list[20].wind.speed + " mph";
-    document.querySelector(".temperature3").innerHTML = "Temperature: " +  d.list[20].main.temp.toFixed(0) + '&deg;' + " F " + " / " + celsius + '&deg;' + " C";
-    document.querySelector(".humidity3").innerHTML = "Humidity: " + d.list[20].main.humidity + "%";
+    document.querySelector(".date3").innerHTML = moment().add(3, 'day').format('l');
+    $(".icon3").attr("src", "http://openweathermap.org/img/wn/" + d.daily[3].weather[0].icon + "@2x" + ".png");
+    document.querySelector(".wind3").innerHTML = "Wind Speed: " +  d.daily[3].wind_speed + " mph";
+    document.querySelector(".temperature3").innerHTML = "Temperature: " +  d.daily[3].temp.day.toFixed(0) + '&deg;' + " F " + " / " + celsius + '&deg;' + " C";
+    document.querySelector(".humidity3").innerHTML = "Humidity: " + d.daily[3].humidity + "%";
 
-    var celsius = Math.round((parseFloat(d.list[28].main.temp)-32)*.5556);
+    var celsius = Math.round((parseFloat(d.daily[4].temp.day)-32)*.5556);
     
-    document.querySelector(".date4").innerHTML = moment().add(4, 'days').format('l');
-    $(".icon4").attr("src", "http://openweathermap.org/img/wn/" + d.list[28].weather[0].icon + "@2x" + ".png");
-    document.querySelector(".wind4").innerHTML = "Wind Speed: " +  d.list[28].wind.speed + " mph";
-    document.querySelector(".temperature4").innerHTML = "Temperature: " +  d.list[28].main.temp.toFixed(0) + '&deg;' + " F " + " / " + celsius + '&deg;' + " C";
-    document.querySelector(".humidity4").innerHTML = "Humidity: " + d.list[28].main.humidity + "%";
+    document.querySelector(".date4").innerHTML = moment().add(4, 'day').format('l');
+    $(".icon4").attr("src", "http://openweathermap.org/img/wn/" + d.daily[4].weather[0].icon + "@2x" + ".png");
+    document.querySelector(".wind4").innerHTML = "Wind Speed: " +  d.daily[4].wind_speed + " mph";
+    document.querySelector(".temperature4").innerHTML = "Temperature: " +  d.daily[4].temp.day.toFixed(0) + '&deg;' + " F " + " / " + celsius + '&deg;' + " C";
+    document.querySelector(".humidity4").innerHTML = "Humidity: " + d.daily[4].humidity + "%";
 
-    var celsius = Math.round((parseFloat(d.list[36].main.temp)-32)*.5556);
+    var celsius = Math.round((parseFloat(d.daily[5].temp.day)-32)*.5556);
     
-    document.querySelector(".date5").innerHTML = moment().add(5, 'days').format('l');
-    $(".icon5").attr("src", "http://openweathermap.org/img/wn/" + d.list[36].weather[0].icon + "@2x" + ".png");
-    document.querySelector(".wind5").innerHTML = "Wind Speed: " +  d.list[36].wind.speed + " mph";
-    document.querySelector(".temperature5").innerHTML = "Temperature: " +  d.list[36].main.temp.toFixed(0) + '&deg;' + " F " + " / " + celsius + '&deg;' + " C";
-    document.querySelector(".humidity5").innerHTML = "Humidity: " + d.list[36].main.humidity + "%";
-}
+    document.querySelector(".date5").innerHTML = moment().add(5, 'day').format('l');
+    $(".icon5").attr("src", "http://openweathermap.org/img/wn/" + d.daily[5].weather[0].icon + "@2x" + ".png");
+    document.querySelector(".wind5").innerHTML = "Wind Speed: " +  d.daily[5].wind_speed + " mph";
+    document.querySelector(".temperature5").innerHTML = "Temperature: " +  d.daily[5].temp.day.toFixed(0) + '&deg;' + " F " + " / " + celsius + '&deg;' + " C";
+    document.querySelector(".humidity5").innerHTML = "Humidity: " + d.daily[5].humidity + "%";
+    }
+
 
 $(".userInput").submit(function(e) {
     e.preventDefault()
@@ -125,13 +142,12 @@ $(".userInput").submit(function(e) {
 
                 $(".cityName").val("");
             })
-            // getFutureForecast(data)
     }
     forecastHide.classList.remove("hide");
     getCurrentForecast();
 
     var getFutureForecast = function(data) {
-        var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&exclude=hourly,minutely&appid=1750d64b9b244e082f61b1c95f2ee8c2";
+        var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&exclude=hourly,minutely&units=imperial&appid=1750d64b9b244e082f61b1c95f2ee8c2";
         // var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&appid=1750d64b9b244e082f61b1c95f2ee8c2&units=imperial';
         fetch(apiUrl)
             .then(function(response) {
