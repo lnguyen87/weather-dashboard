@@ -18,8 +18,7 @@ function displayWeather(d) {
     
 }
 
-
-// pulls data from API get
+// pulls data from API onecall
 function displayForecast( d ) {
     // prints UV Index to DOM and syles background based on uvIndex burn times
     document.querySelector(".uvIndex").innerHTML = d.current.uvi;
@@ -45,6 +44,7 @@ function displayForecast( d ) {
     document.querySelector(".uvIndex").style.cssText = `background-color: #ff058a;`
     }
 
+    //performs math function to convert Fahrenheit into Celsius
     var celsius = Math.round((parseFloat(d.daily[1].temp.day)-32)*.5556);
     
     document.querySelector(".date1").innerHTML = moment().add(1, 'day').format('l');
@@ -148,7 +148,6 @@ $(".userInput").submit(function(e) {
 
     var getFutureForecast = function(data) {
         var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&exclude=hourly,minutely&units=imperial&appid=1750d64b9b244e082f61b1c95f2ee8c2";
-        // var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&appid=1750d64b9b244e082f61b1c95f2ee8c2&units=imperial';
         fetch(apiUrl)
             .then(function(response) {
                 if (response.ok) {
@@ -164,7 +163,6 @@ $(".userInput").submit(function(e) {
                 alert("City not found! Please enter a new city.");
             });
         }
-        // getFutureForecast();
 });
 
 // create a clear local storage button
@@ -175,9 +173,34 @@ $(".resetButton").click(function() {
     savedSearch.classList.add("hide");
 }) 
 
-// on load, display local stored buttons
-// var load = function() {
-//     var loadCity = localStorage.getItem(saveInput[i]);
-//     console.log(loadCity);
-// }
-// load();
+
+// on page load checks local storage for history
+var load = function() {
+    var loadCity = JSON.parse(localStorage.getItem("location"));
+    console.log(loadCity);
+
+
+    // if local storage has data, create button and append to DOM
+    for (var i =0; i < loadCity.length; i++) {
+        console.log("load city: ", loadCity)
+        $(".savedSearch").append(`<button class="historyBtn" 
+        data-cityName="${loadCity[i]}" 
+        value="${loadCity[i]}" 
+        style="margin: 8px; 
+        color: #000000; 
+        backgroundColor: #e7e7e7; 
+        padding: 5px; 
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        width: 240px;
+        align-items: center;">
+        ${loadCity[i]}</button>`);
+
+    }
+}
+
+load();
+
+
+
